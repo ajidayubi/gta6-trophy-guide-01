@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-frontend.ts';
@@ -22,3 +22,19 @@ writeFileSync(
     app_max_bytes: 50331648,
   }),
 );
+
+const dossierPath = join(out, 'dossier.json');
+const dossierRaw = readFileSync(dossierPath);
+const dossier = JSON.parse(dossierRaw.toString('utf8'));
+
+if (!Array.isArray(dossier.images) || dossier.images.length === 0) {
+  throw new Error('dossier.json has no images');
+}
+if (!dossier.text || dossier.text.length === 0) {
+  throw new Error('dossier.json has no text');
+}
+if (!existsSync(join(out, 'app', 'index.html'))) {
+  throw new Error('copied app/index.html is missing from output directory');
+}
+
+console.log(`Dossier written to ${dossierPath}: ${dossierRaw.length} bytes, ${dossier.images.length} images`);

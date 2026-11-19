@@ -38,3 +38,10 @@ if (!existsSync(join(out, 'app', 'index.html'))) {
 }
 
 console.log(`Dossier written to ${dossierPath}: ${dossierRaw.length} bytes, ${dossier.images.length} images`);
+
+for (const shot of ['1-checklist.jpg', '2-guide.jpg', '3-roadmap.jpg', '4-spoiler.jpg']) {
+  if (!existsSync(join(out, 'screenshots', shot))) {
+    throw new Error(`screenshot ${shot} missing from output directory`);
+  }
+}
+console.log('All 4 screenshots present in output');

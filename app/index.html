@@ -1,25 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leonida Platinum Roadbook — GTA VI Trophy Guide & Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
-</header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
-<script type="module" src="app.js"></script>
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <h1>Leonida Platinum Roadbook</h1>
+        <p class="subtitle">GTA VI trophy guide and tracker — all 55 trophies, offline</p>
+      </div>
+      <div class="progress-box">
+        <div class="progress-stats">
+          <span id="progress-text">0 / 55 earned</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="card roadmap-section">
+      <h2>Leonida Platinum Roadmap</h2>
+      <div class="roadmap-facts">
+        <div class="fact-item"><strong>Time to Platinum:</strong> ~200 hours</div>
+        <div class="fact-item"><strong>Difficulty:</strong> 4/10</div>
+        <div class="fact-item"><strong>Playthroughs:</strong> 1 (Free roam available)</div>
+        <div class="fact-item"><strong>Online Trophies:</strong> None (100% offline)</div>
+        <div class="fact-item"><strong>Mission Replay:</strong> None</div>
+        <div class="fact-item"><strong>Missables:</strong> 1 (Positive Mental Attitude)</div>
+      </div>
+      <div class="roadmap-stages">
+        <div class="stage-card">
+          <h3>Stage 1: Story First (60–80 h)</h3>
+          <p>Play through all 5 chapters with Jason and Lucia. Complete the Lucia balcony meditation in Chapter 1 (after "Down to Earth") — your only missable interaction. Keep manual saves. Scan vehicles with WAiNK and study animals with binoculars early.</p>
+        </div>
+        <div class="stage-card">
+          <h3>Stage 2: 100% Completion (~100 h)</h3>
+          <p>After the story, open Progress &gt; Stats &gt; 100% Completion and work through collectibles, stunt jumps, and activities. Leave the 8 large bank vaults until "That's Where The Money Is…" in Chapter 4.</p>
+        </div>
+        <div class="stage-card">
+          <h3>Stage 3: Cleanup (10–20 h)</h3>
+          <p>Finish Strangers &amp; Freaks strands, character questline finals, remaining meditation spots, and outstanding combat or driving trophies. Unlock Vice Got a Price!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Missable Section -->
+    <section id="missable" class="card missable-section">
+      <h2>⚠️ Missable Trophy Warning</h2>
+      <div class="missable-alert">
+        <p><strong>Positive Mental Attitude (Trophy #28):</strong> This is the <em>only</em> strictly missable trophy in GTA VI. Meditate at all 18 spots across Leonida; the first spot is the Lucia balcony meditation in Chapter 1, after the mission "Down to Earth" — find Lucia at Jason's house in the morning, follow her to the balcony and accept when she mentions meditating; complete it before leaving Chapter 1, because there is no mission replay, so keep a manual save at the start of every chapter. All other trophies can be cleaned up in free roam after the story.</p>
+      </div>
+    </section>
+
+    <!-- Tracker & Filters Section -->
+    <section class="tracker-section">
+      <div class="controls-bar">
+        <div class="filter-buttons" id="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="story">Story</button>
+          <button class="filter-btn" data-filter="missable">Missable</button>
+          <button class="filter-btn" data-filter="collectibles">Collectibles</button>
+          <button class="filter-btn" data-filter="activities">Activities</button>
+          <button class="filter-btn" data-filter="online">Online</button>
+          <button class="filter-btn" data-filter="platinum">Platinum</button>
+        </div>
+        <div class="search-spoiler-box">
+          <input type="text" id="search-input" placeholder="Search trophies..." aria-label="Search trophies">
+          <label class="spoiler-toggle-label">
+            <input type="checkbox" id="spoiler-toggle" checked> Hide story spoilers
+          </label>
+        </div>
+      </div>
+
+      <div class="actions-bar">
+        <button id="export-btn" class="action-btn">Export Progress</button>
+        <label id="import-btn-label" class="action-btn file-input-label">
+          Import Progress <input type="file" id="import-file" accept=".json" style="display: none;">
+        </label>
+        <button id="reset-btn" class="action-btn secondary">Reset Progress</button>
+      </div>
+
+      <!-- Trophy List -->
+      <div id="trophy-list" class="trophy-list">
+        <!-- Rendered via app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Detail Modal / Panel -->
+  <div id="detail-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content card" id="detail">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      <div id="modal-body">
+        <!-- Detail content -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>Leonida Platinum Roadbook &bull; Built for make.fun gta6-trophy-guide-01 bounty &bull; 100% Offline Static Tracker</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -45,3 +45,11 @@ for (const shot of ['1-checklist.jpg', '2-guide.jpg', '3-roadmap.jpg', '4-spoile
   }
 }
 console.log('All 4 screenshots present in output');
+
+const trophiesPath = join(out, 'app', 'data', 'trophies.json');
+const trophiesData = JSON.parse(readFileSync(trophiesPath, 'utf8'));
+const trophies = trophiesData.trophies;
+if (!Array.isArray(trophies) || trophies.length !== 55) {
+  throw new Error('trophies.json must list 55 trophies');
+}
+console.log('Trophy data verified: 55 trophies');
